@@ -22,19 +22,21 @@ class Follower(Base):
     __tablename__= 'follower'
     id = Column(String, primary_key=True)
     user_name = Column(String(50), nullable=False)
-    user_id = Column (Integer, ForeignKey('user.user_name'))
+    user_id = Column (Integer, ForeignKey('user.id'))
 
 class Comment(Base):
     __tablename__= 'comment'
     id = Column (Integer, primary_key=True)
     comment_text = Column (String (500))
-    author_id = Column (Integer, ForeignKey('user.author_id'))
+    author_id = Column (Integer, ForeignKey('user.id'))
     post_id = Column (Integer, ForeignKey ('post.id'))
    
 class Post(Base):
     __tablename__= 'post'
     id = Column (Integer, primary_key=True)
-    user_id = Column (Integer, ForeignKey('user.user_id'))
+    user_id = Column (Integer, ForeignKey('user.id'))
+    comment = relationship('comment')
+    media = relationship('media')
 
 class Media(Base):
     __tablename__= 'media'
